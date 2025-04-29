@@ -6,10 +6,12 @@ const { OpenAI } = require("openai");
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Permitir CORS para qualquer origem (ou especifique o domínio do seu site WordPress)
-app.use(cors());
-// Se quiser restringir:
-app.use(cors({ origin: "https://www.profgabrielmiranda.com.br" }));
+app.use(cors({
+  origin: [
+    "https://profgabrielmiranda.com.br",
+    "https://www.profgabrielmiranda.com.br"
+  ]
+}));
 
 app.use(bodyParser.json());
 
