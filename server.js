@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require("cors");
+app.use(cors({
+  origin: "https://profgabrielmiranda.com.br" // substitua pelo domínio real do seu WordPress
+}));
 const { OpenAI } = require("openai");
 
 const app = express();
