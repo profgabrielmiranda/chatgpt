@@ -43,7 +43,28 @@ app.post("/api/chat", async (req, res) => {
         },
       ],
     });
+    
+const messages = [
+  {
+    role: "system",
+    content: "Você é um assistente que responde com fórmulas matemáticas em LaTeX entre delimitadores \\[ e \\].",
+  },
+  {
+    role: "user",
+    content: userMessage, // A mensagem do usuário
+  },
+];
 
+// Gerar a resposta com a fórmula LaTeX
+const respostaLaTeX = `
+  A fórmula de Bhaskara é: \[
+    x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}
+  \\]
+`;
+
+const data = {
+  reply: respostaLaTeX,
+};
     const reply = completion.choices[0].message.content;
     res.json({ reply });
   } catch (error) {
