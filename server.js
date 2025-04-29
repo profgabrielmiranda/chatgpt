@@ -6,6 +6,7 @@ const { OpenAI } = require("openai");
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Habilita CORS para ambas as versões do domínio com e sem www
 app.use(cors({
   origin: [
     "https://profgabrielmiranda.com.br",
@@ -15,11 +16,12 @@ app.use(cors({
 
 app.use(bodyParser.json());
 
-// Inicialização do cliente OpenAI
+// Inicializa o cliente OpenAI
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+// Endpoint principal para o chat
 app.post("/api/chat", async (req, res) => {
   const userMessage = req.body.message;
 
@@ -29,11 +31,11 @@ app.post("/api/chat", async (req, res) => {
 
   try {
     const completion = await openai.chat.completions.create({
-      model: "gpt-4", // ou use "gpt-3.5-turbo" se preferir
+      model: "gpt-4",
       messages: [
         {
           role: "system",
-          content: "Você é um assistente que responde com fórmulas matemáticas usando LaTeX entre delimitadores \\[ \\].",
+          content: "Você é um assistente que responde com fórmulas matemáticas em LaTeX entre delimitadores \\[ \\].",
         },
         {
           role: "user",
@@ -50,6 +52,7 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
+// Inicia o servidor
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
